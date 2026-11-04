@@ -7,6 +7,7 @@
 //
 // Pieces: merlin, percival, assassin, morgana, mordred, oberon (1 each),
 // loyal_servant (print 6), minion (print 4), lady_of_the_lake (1),
+// loyalty_good (1), loyalty_evil (1),
 // marker_good (3), marker_evil (3).
 //
 // Render one coin from the command line, e.g.
@@ -149,9 +150,11 @@ module icon_lady() {                // Lady of the Lake: sword rising from water
 }
 
 module icon_flame() {
-    teardrop2d(4.6, 12);
-    translate([-3.6, -2.2]) rotate(28) teardrop2d(2.4, 6.5);
-    translate([3.6, -2.2]) rotate(-28) teardrop2d(2.4, 6.5);
+    translate([0, -3.4]) {          // centred on the origin, like the other icons
+        teardrop2d(4.6, 12);
+        translate([-3.6, -2.2]) rotate(28) teardrop2d(2.4, 6.5);
+        translate([3.6, -2.2]) rotate(-28) teardrop2d(2.4, 6.5);
+    }
 }
 
 module icon_star() { star2d(8, 3.4); }
@@ -169,6 +172,8 @@ designs = [
     ["oberon",         "blind_eye",     "OBERON",        "EVIL"],
     ["minion",         "hood",          "MINION",        "EVIL"],
     ["lady_of_the_lake","lady",         "LADY OF THE LAKE", ""],
+    ["loyalty_good",   "star",          "LOYALTY",       "GOOD"],
+    ["loyalty_evil",   "flame",         "LOYALTY",       "EVIL"],
 ];
 
 module icon(name) {

@@ -27,6 +27,7 @@ n_loyal   = 6;
 n_minion  = 4;
 n_roles   = n_special + n_loyal + n_minion;   // 16
 n_lady    = 1;
+n_loyalty = 2;   // 1 Good + 1 Evil loyalty coin, shown to the Lady of the Lake
 n_markers = 6;   // 3 Good + 3 Evil round markers (a game ends after 3 wins for either side)
 
 // ---------- Hexagonal storage tube ----------
@@ -48,7 +49,7 @@ tube_h        = label_zone + track_len;
 // Inside: a snug marker pocket at the bottom, the coin stack above it, then the thread.
 marker_pocket_d = marker_d + 0.6;
 marker_pocket_h = n_markers * marker_t + 0.4;
-coin_stack_h    = (n_roles + n_lady) * coin_t + 0.6;
+coin_stack_h    = (n_roles + n_lady + n_loyalty) * coin_t + 0.6;
 
 // Screw lid. The thread is a twisted off-centre circle: a rounded single-start
 // thread that prints without supports and needs no library.

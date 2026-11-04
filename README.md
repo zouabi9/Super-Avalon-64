@@ -20,6 +20,8 @@ and 10 players. All artwork is original and drawn in OpenSCAD.
 | Oberon | `stl/coins/oberon.stl` | 1 | Evil |
 | Minion | `stl/coins/minion.stl` | **4** | Evil |
 | Lady of the Lake | `stl/coins/lady_of_the_lake.stl` | 1 | |
+| Loyalty: Good | `stl/coins/loyalty_good.stl` | 1 | for Lady of the Lake |
+| Loyalty: Evil | `stl/coins/loyalty_evil.stl` | 1 | for Lady of the Lake |
 | Good round marker (star) | `stl/coins/marker_good.stl` | **3** | goes in a quest-track recess |
 | Evil round marker (flame) | `stl/coins/marker_evil.stl` | **3** | goes in a quest-track recess |
 | Tube | `stl/tube/tube.stl` | 1 | |
@@ -28,6 +30,10 @@ and 10 players. All artwork is original and drawn in OpenSCAD.
 That is 16 role coins: all six special roles, plus 6 Loyal Servants and
 4 Minions, so a 10-player game also works with no special roles at all.
 A game ends after three wins for one side, so 3 markers per side is enough.
+
+**Lady of the Lake:** hand the two loyalty coins to the player being
+examined. They pass the one matching their side face-down to the Lady's
+holder and keep the other hidden, so only loyalty is revealed, never the role.
 
 Coins are 40 mm × 3 mm. Each front shows the role, its icon and GOOD/EVIL; the
 backs all carry the same debossed pattern so coins can be dealt face-down.
@@ -55,7 +61,7 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
 | 10 | 3 | 4 | 4 | 5•• | 5 |
 
 Inside, from the bottom: a pocket that holds the six markers snugly, then the
-stack of 17 coins (0.3 mm radial play), then the female thread. The lid's
+stack of 19 coins (0.3 mm radial play), then the female thread. The lid's
 threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
 tube faces when it is screwed home.

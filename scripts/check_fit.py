@@ -34,10 +34,10 @@ zs = np.arange(0.2, tube.bounds[1][2], 0.2)
 inside = tube.contains(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs])
 floor = zs[inside].max()  # top of the solid floor
 cavity = tube.bounds[1][2] - floor
-stack = 17 * coin.extents[2] + 6 * marker.extents[2]
+stack = 19 * coin.extents[2] + 6 * marker.extents[2]
 lid = meshes["lid"]
 plug = lid.extents[2] - val("lid_plate")
-print(f"cavity depth {cavity:.1f} mm, lid plug {plug:.1f} mm, stack of 17 coins + 6 markers {stack:.1f} mm")
+print(f"cavity depth {cavity:.1f} mm, lid plug {plug:.1f} mm, stack of 19 coins + 6 markers {stack:.1f} mm")
 print(f"headroom under the lid: {cavity - plug - stack:.2f} mm")
 ok &= 0 < cavity - plug - stack < 3
 
