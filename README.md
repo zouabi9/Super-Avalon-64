@@ -60,8 +60,6 @@ threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
 tube faces when it is screwed home.
 
-![Cross-section](docs/section.png)
-
 Overall size closed: 54.6 mm across flats, 63 mm across corners, 183 mm tall.
 The cavity is only as deep as the set needs; the rest of the tube is solid, so
 print it with low infill (10–15 %) to save filament.
