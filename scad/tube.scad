@@ -77,6 +77,9 @@ module tube() {
         translate([0, 0, thread_base - coin_stack_h - marker_pocket_h])
             cylinder(d = marker_pocket_d, h = marker_pocket_h + 0.5);
         for (i = [0 : 5]) face_cuts(i);
+        // name on the base, mirrored so it reads correctly when you look at the bottom
+        translate([0, 0, -0.01]) linear_extrude(bottom_text_depth + 0.01) mirror([1, 0])
+            text("AVALON", size = tube_af * 0.16, font = font_main, halign = "center", valign = "center");
     }
 }
 

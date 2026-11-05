@@ -28,6 +28,7 @@ n_minion  = 4;
 n_roles   = n_special + n_loyal + n_minion;   // 16
 n_lady    = 1;
 n_loyalty = 2;   // 1 Good + 1 Evil loyalty coin, shown to the Lady of the Lake
+n_quest   = 10;  // 5 Success + 5 Fail secret quest coins (a team is at most 5)
 n_markers = 6;   // 3 Good + 3 Evil round markers (a game ends after 3 wins for either side)
 
 // ---------- Hexagonal storage tube ----------
@@ -44,12 +45,13 @@ engrave_depth = 0.8;              // depth of the team-size number below the rec
 recess_gap    = 5;                // gap between recesses along the face
 label_zone    = 26;               // top band of each face: player-count label (sits over the lid thread)
 track_len     = 5 * recess_d + 6 * recess_gap;
-tube_h        = label_zone + track_len;
+tube_floor    = 3;                // solid material under the marker pocket
+bottom_text_depth = 0.8;          // depth of the AVALON engraving on the base
 
 // Inside: a snug marker pocket at the bottom, the coin stack above it, then the thread.
 marker_pocket_d = marker_d + 0.6;
 marker_pocket_h = n_markers * marker_t + 0.4;
-coin_stack_h    = (n_roles + n_lady + n_loyalty) * coin_t + 0.6;
+coin_stack_h    = (n_roles + n_lady + n_loyalty + n_quest) * coin_t + 0.6;
 
 // Screw lid. The thread is a twisted off-centre circle: a rounded single-start
 // thread that prints without supports and needs no library.
@@ -62,6 +64,9 @@ lid_plate     = 4;
 
 // Depth of the cavity measured from the top of the tube
 cavity_h = thread_len + coin_stack_h + marker_pocket_h;
+
+// Long enough for the quest track and for everything stored inside.
+tube_h = max(label_zone + track_len, cavity_h + tube_floor);
 
 // Team sizes per round, per player count (standard 5-10 player table).
 // Round 4 needs two Fail coins to fail when playing with 7 or more.
