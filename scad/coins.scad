@@ -8,7 +8,7 @@
 // Pieces: merlin, percival, assassin, morgana, mordred, oberon (1 each),
 // loyal_servant (print 6), minion (print 4), lady_of_the_lake (1),
 // loyalty_good (1), loyalty_evil (1), success (5), fail (5),
-// marker_good (3), marker_evil (3).
+// marker (5): two-sided round marker, star + GOOD on top, flame + EVIL underneath.
 //
 // Render one coin from the command line, e.g.
 //   openscad -D 'part="merlin"' -o merlin.stl scad/coins.scad
@@ -271,21 +271,35 @@ module loyalty_coin(good) {
     }
 }
 
-// Round markers for the quest track on the tube: star + GOOD, or flame + EVIL.
-module marker(good) {
-    coin_body(marker_d, marker_t, show_back = false);
-    front_relief(marker_t) {
-        translate([0, 3.6]) scale(0.48) if (good) icon_star(); else icon_flame();
-        translate([0, -4.6]) text(good ? "GOOD" : "EVIL", size = 3.6, font = font_main,
-                                  halign = "center", valign = "center");
+// Round marker artwork for one face.
+module marker_face2d(good) {
+    ring2d(marker_d / 2 - 0.9, 0.8);
+    translate([0, 4.2]) scale(0.55) if (good) icon_star(); else icon_flame();
+    translate([0, -5.2]) text(good ? "GOOD" : "EVIL", size = 4, font = font_main,
+                              halign = "center", valign = "center");
+}
+
+// Two-sided round marker: star + GOOD engraved on top, flame + EVIL on the bottom
+// (mirrored so it reads correctly when flipped). Engraving both faces means it
+// prints flat with no supports; fill the engraving with paint for contrast.
+module marker() {
+    difference() {
+        hull() {
+            cylinder(d = marker_d - 2 * edge_chamfer, h = 0.01);
+            translate([0, 0, edge_chamfer]) cylinder(d = marker_d, h = marker_t - 2 * edge_chamfer);
+            translate([0, 0, marker_t - 0.01]) cylinder(d = marker_d - 2 * edge_chamfer, h = 0.01);
+        }
+        translate([0, 0, marker_t - marker_deboss])
+            linear_extrude(marker_deboss + 0.01) marker_face2d(true);
+        translate([0, 0, -0.01])
+            linear_extrude(marker_deboss + 0.01) mirror([1, 0]) marker_face2d(false);
     }
 }
 
 module make_part(p) {
-    if (p == "marker_good") marker(true);
+    if (p == "marker") marker();
     else if (p == "loyalty_good") loyalty_coin(true);
     else if (p == "loyalty_evil") loyalty_coin(false);
-    else if (p == "marker_evil") marker(false);
     else for (dsg = designs) if (dsg[0] == p) coin(dsg[1], dsg[2], dsg[3]);
 }
 
@@ -294,17 +308,22 @@ module make_part(p) {
 // "art" = flat 2D layout of the front artwork, for quick previews.
 module art2d(p) {
     projection(cut = true)
-        translate([0, 0, -((p == "marker_good" || p == "marker_evil" ? marker_t : coin_t) - relief_h / 2)])
+        translate([0, 0, -(coin_t - relief_h / 2)])
             make_part(p);
 }
 
 if (part == "art") {
-    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil", "marker_good", "marker_evil"]);
+    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil"]);
     for (i = [0 : len(ids) - 1])
         translate([(i % 4) * (coin_d + 4), -floor(i / 4) * (coin_d + 4)])
             art2d(ids[i]);
+    // both faces of the round marker
+    n = len(ids);
+    for (k = [0, 1])
+        translate([((n + k) % 4) * (coin_d + 4), -floor((n + k) / 4) * (coin_d + 4)])
+            { ring2d(marker_d / 2, 0.4); marker_face2d(k == 0); }   // engraved areas shown solid
 } else if (part == "all") {
-    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil", "marker_good", "marker_evil"]);
+    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil", "marker"]);
     for (i = [0 : len(ids) - 1])
         translate([(i % 6) * (coin_d + 4), -floor(i / 6) * (coin_d + 4), 0])
             make_part(ids[i]);

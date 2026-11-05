@@ -15,9 +15,11 @@ rim_w       = 1.2;   // width of the raised rim on the front
 back_depth  = 0.4;   // depth of the debossed back pattern
 edge_chamfer = 0.4;  // bottom edge chamfer (fights elephant's foot)
 
-// ---------- Round markers (Good / Evil, sit in the quest-track recesses) ----------
-marker_d    = 24;
-marker_t    = 2.4;
+// ---------- Round markers (two-sided: star + GOOD / flame + EVIL) ----------
+// Sit in the quest-track recesses on the outside of the tube, flip to the winning side.
+marker_d      = 26;
+marker_t      = 3.0;
+marker_deboss = 0.6;   // depth of the artwork engraved into each face
 
 // ---------- How many of each piece the full 5-10 player set needs ----------
 // 6 special roles (Merlin, Percival, Assassin, Morgana, Mordred, Oberon)
@@ -29,7 +31,7 @@ n_roles   = n_special + n_loyal + n_minion;   // 16
 n_lady    = 1;
 n_loyalty = 2;   // 1 Good + 1 Evil loyalty coin, shown to the Lady of the Lake
 n_quest   = 10;  // 5 Success + 5 Fail secret quest coins (a team is at most 5)
-n_markers = 6;   // 3 Good + 3 Evil round markers (a game ends after 3 wins for either side)
+n_markers = 5;   // one two-sided marker per round
 
 // ---------- Hexagonal storage tube ----------
 fit_clearance = 0.3;              // radial gap between coin and bore: snug, but coins still drop in
@@ -39,7 +41,7 @@ tube_af       = bore_d + 2*tube_wall;     // outer size across flats
 tube_side     = tube_af / sqrt(3);        // width of one face
 
 // Quest-track recesses (one column of 5 per face)
-recess_d      = marker_d + 0.6;   // marker drops in with a little play
+recess_d      = marker_d + 0.3;   // snug: marker presses in and stays put
 recess_depth  = marker_t;         // marker sits flush with the face
 engrave_depth = 0.8;              // depth of the team-size number below the recess floor
 recess_gap    = 5;                // gap between recesses along the face
@@ -49,7 +51,7 @@ tube_floor    = 3;                // solid material under the marker pocket
 bottom_text_depth = 0.8;          // depth of the AVALON engraving on the base
 
 // Inside: a snug marker pocket at the bottom, the coin stack above it, then the thread.
-marker_pocket_d = marker_d + 0.6;
+marker_pocket_d = marker_d + 0.4;
 marker_pocket_h = n_markers * marker_t + 0.4;
 coin_stack_h    = (n_roles + n_lady + n_loyalty + n_quest) * coin_t + 0.6;
 
