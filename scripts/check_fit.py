@@ -30,7 +30,7 @@ print(f"\ncoin diameter {coin.extents[0]:.2f} mm, bore {bore:.2f} mm, radial pla
 
 # Probe the tube cavity: a point on the axis at each height is empty down to the floor.
 import numpy as np
-zs = np.arange(0.2, tube.bounds[1][2], 0.2)
+zs = np.arange(0.2, tube.bounds[1][2], 0.5)
 inside = tube.contains(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs])
 floor = zs[inside].max()  # top of the solid floor
 cavity = tube.bounds[1][2] - floor
