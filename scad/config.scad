@@ -8,12 +8,12 @@ font_main = "Liberation Sans:style=Bold";   // numbers / labels on the tube
 font_arc  = "Liberation Mono:style=Bold";   // curved coin text (even spacing looks right on an arc)
 
 // ---------- Main coins (roles + Lady of the Lake) ----------
-coin_d      = 40;    // diameter
+coin_d      = 38;    // diameter
 coin_t      = 3.0;   // total thickness (base + raised relief)
 relief_h    = 0.6;   // height of the raised front artwork and rim (colour-swap layer)
 rim_w       = 1.2;   // width of the raised rim on the front
 back_depth  = 0.4;   // depth of the debossed back pattern
-edge_chamfer = 0.4;  // bottom edge chamfer (fights elephant's foot)
+coin_fillet  = 0.6;  // radius of the rounded outer edges on coins and markers
 
 // ---------- Round markers (two-sided: star + GOOD / flame + EVIL) ----------
 // Sit in the quest-track recesses on the outside of the tube, flip to the winning side.
@@ -34,10 +34,10 @@ n_quest   = 10;  // 5 Success + 5 Fail secret quest coins (a team is at most 5)
 n_markers = 5;   // one two-sided marker per round
 
 // ---------- Hexagonal storage tube ----------
-fit_clearance = 0.3;              // radial gap between coin and bore: snug, but coins still drop in
+fit_clearance = 0.5;              // radial gap between coin and bore: no jamming, coins tip out freely
 bore_d        = coin_d + 2*fit_clearance;
-tube_wall     = 7;                // wall thickness at the middle of each face
-tube_af       = bore_d + 2*tube_wall;     // outer size across flats
+tube_af       = 54.6;             // outer size across flats (wide enough for the quest-track recesses)
+tube_wall     = (tube_af - bore_d) / 2;  // wall thickness at the middle of each face
 tube_side     = tube_af / sqrt(3);        // width of one face
 
 // Quest-track recesses (one column of 5 per face)
@@ -63,6 +63,12 @@ thread_e      = 0.8;              // eccentricity = half the thread depth
 thread_r      = bore_d / 2 + thread_e + 0.2;   // keeps the thread's narrowest point wider than the bore
 thread_fit    = 0.3;              // radial clearance between male and female thread
 lid_plate     = 4;
+
+// Rounded exterior edges
+tube_corner_r = 2.0;              // the six long corners of the hex
+tube_end_r    = 1.5;              // top and bottom outer edges of the tube, top of the lid
+lid_seam_r    = 0.8;              // where lid and tube meet (small, so the seam stays tidy)
+recess_lip_r  = 0.6;              // rounded mouth of each quest-track recess
 
 // Depth of the cavity measured from the top of the tube
 cavity_h = thread_len + coin_stack_h + marker_pocket_h;

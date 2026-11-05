@@ -19,7 +19,31 @@ part = "assembly";
 
 hex_d = tube_af / cos(30);     // across-corners diameter for cylinder($fn = 6)
 
-module hex_prism(h) { cylinder(d = hex_d, h = h, $fn = 6); }
+// Hexagon with across-flats `af`.
+module hex2d(af) { circle(d = af / cos(30), $fn = 6); }
+
+// Hex prism (across flats tube_af) with rounded long corners (tube_corner_r)
+// and filleted bottom / top outer edges (rb / rt).
+module rounded_hex_prism(h, rb, rt, steps = 8) {
+    module slice(z, inset)
+        translate([0, 0, z]) linear_extrude(0.01)
+            offset(r = tube_corner_r, $fn = 32) hex2d(tube_af - 2 * tube_corner_r - 2 * inset);
+    hull() {
+        for (k = [0 : steps]) let(a = 90 * k / steps) {
+            slice(rb - rb * cos(a), rb - rb * sin(a));
+            slice(h - 0.01 - (rt - rt * cos(a)), rt - rt * sin(a));
+        }
+    }
+}
+
+// Ring that rounds the mouth of a round hole of radius r, `f` deep, axis along +z,
+// with the surface at z = 0.
+module hole_lip(r, f) {
+    rotate_extrude($fn = 96)
+        polygon(concat([[0, -f - 0.01], [r, -f - 0.01]],
+                       [for (a = [180 : -10 : 90]) [r + f + f * cos(a), -f + f * sin(a)]],
+                       [[r + f, 0.01], [0, 0.01]]));
+}
 
 // Rounded single-start thread: a circle offset from the axis, twisted along z.
 module thread_body(r, len) {
@@ -56,6 +80,10 @@ module face_cuts(i) {
         rotate([0, 0, 30 + 60 * i])
             translate([tube_af / 2 - recess_depth, 0, recess_z(j)])
                 rotate([0, 90, 0]) cylinder(d = recess_d, h = recess_depth + 1);
+        // rounded mouth of the recess
+        rotate([0, 0, 30 + 60 * i])
+            translate([tube_af / 2, 0, recess_z(j)])
+                rotate([0, 90, 0]) hole_lip(recess_d / 2, recess_lip_r);
         // team size engraved in the recess floor
         on_face(i, recess_z(j), recess_depth + engrave_depth) {
             translate([0, 1]) text(str(teams[j]), size = recess_d * 0.5, font = font_main,
@@ -68,7 +96,7 @@ module face_cuts(i) {
 
 module tube() {
     difference() {
-        hex_prism(tube_h);
+        rounded_hex_prism(tube_h, tube_end_r, lid_seam_r);
         // female thread
         translate([0, 0, thread_base]) thread_body(thread_r, thread_len + 0.01);
         // coin bore
@@ -87,7 +115,7 @@ module tube() {
 module lid_in_place() {
     difference() {
         union() {
-            translate([0, 0, tube_h]) hex_prism(lid_plate);
+            translate([0, 0, tube_h]) rounded_hex_prism(lid_plate, lid_seam_r, tube_end_r);
             intersection() {
                 translate([0, 0, thread_base]) thread_body(thread_r - thread_fit, thread_len);
                 translate([0, 0, thread_base + 0.6]) cylinder(r = thread_r + 2, h = thread_len);

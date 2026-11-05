@@ -219,21 +219,25 @@ module back_pattern(r) {
 }
 
 // Disc with a small chamfer on the bed side.
-module blank(d, t) {
-    hull() {
-        cylinder(d = d - 2 * edge_chamfer, h = 0.01);
-        translate([0, 0, edge_chamfer]) cylinder(d = d, h = t - edge_chamfer);
-    }
+// Disc of diameter d and height h with filleted outer edges (bottom radius rb, top rt).
+module rounded_disc(d, h, rb, rt) {
+    R = d / 2;
+    rotate_extrude($fn = $fn)
+        hull() {
+            square([0.01, h]);
+            square([R - rb, 0.01]);
+            translate([0, h - 0.01]) square([R - rt, 0.01]);
+            translate([R - rb, rb]) circle(rb, $fn = 24);
+            translate([R - rt, h - rt]) circle(rt, $fn = 24);
+        }
 }
 
 module coin_body(d, t, show_back = true) {
     base_t = t - relief_h;
     difference() {
-        union() {
-            blank(d, base_t);
-            translate([0, 0, base_t - 0.01])
-                linear_extrude(relief_h + 0.01) ring2d(d / 2, rim_w);
-        }
+        // full-height disc with rounded outer edges, hollowed inside the rim
+        rounded_disc(d, t, coin_fillet, min(coin_fillet, relief_h));
+        translate([0, 0, base_t]) cylinder(r = d / 2 - rim_w, h = t);
         if (show_back)
             translate([0, 0, -0.01]) linear_extrude(back_depth + 0.01) back_pattern(d / 2);
     }
@@ -284,11 +288,7 @@ module marker_face2d(good) {
 // prints flat with no supports; fill the engraving with paint for contrast.
 module marker() {
     difference() {
-        hull() {
-            cylinder(d = marker_d - 2 * edge_chamfer, h = 0.01);
-            translate([0, 0, edge_chamfer]) cylinder(d = marker_d, h = marker_t - 2 * edge_chamfer);
-            translate([0, 0, marker_t - 0.01]) cylinder(d = marker_d - 2 * edge_chamfer, h = 0.01);
-        }
+        rounded_disc(marker_d, marker_t, coin_fillet, coin_fillet);
         translate([0, 0, marker_t - marker_deboss])
             linear_extrude(marker_deboss + 0.01) marker_face2d(true);
         translate([0, 0, -0.01])

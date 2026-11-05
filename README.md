@@ -40,7 +40,7 @@ can't be read from behind. A team is never bigger than 5, so 5 of each is enough
 examined. They pass the one matching their side face-down to the Lady's
 holder and keep the other hidden, so only loyalty is revealed, never the role.
 
-Coins are 40 mm × 3 mm. Each front shows the role, its icon and GOOD/EVIL; the
+Coins are 38 mm × 3 mm with rounded edges. Each front shows the role, its icon and GOOD/EVIL; the
 backs all carry the same debossed pattern so coins can be dealt face-down.
 
 ## The tube
@@ -66,12 +66,14 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
 | 10 | 3 | 4 | 4 | 5•• | 5 |
 
 Inside, from the bottom: a pocket that holds the five markers snugly, then the
-stack of 29 coins (0.3 mm radial play), then the female thread. The lid's
+stack of 29 coins (0.5 mm radial play, so they slide out freely), then the female thread. The lid's
 threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
 tube faces when it is screwed home.
 
-The base is engraved **AVALON** and the lid carries a compass star.
+The base is engraved **AVALON** and the lid carries a compass star. All outside
+edges are rounded: the six long corners (2 mm), the ends of the tube and lid,
+and the mouth of every recess.
 
 Overall size closed: 54.6 mm across flats, 63 mm across corners, 191.5 mm tall.
 Everything in the set (29 coins and 5 markers) fits inside. The cavity is only as deep as the set needs; the rest of the tube is solid, so
@@ -89,7 +91,7 @@ print it with low infill (10–15 %) to save filament.
 * **Tube:** upright, lid end up, no supports (the recesses are shallow enough
   to bridge). 0.2 mm layers are fine.
 * **Lid:** already oriented plate-down in the STL.
-* If the coins are too tight on your printer, raise `fit_clearance`; if the
+* If the coins are too tight (or too loose) on your printer, change `fit_clearance`; if the
   lid is too tight or loose, change `thread_fit`.
 
 ## Editing
