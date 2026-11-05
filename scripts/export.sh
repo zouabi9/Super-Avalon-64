@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 mkdir -p stl/coins stl/tube
 
 coins=(merlin percival assassin morgana mordred oberon loyal_servant minion
-       lady_of_the_lake loyalty_good loyalty_evil marker_good marker_evil)
+       lady_of_the_lake loyalty_good loyalty_evil success fail marker_good marker_evil)
 
 jobs=()
 for c in "${coins[@]}"; do

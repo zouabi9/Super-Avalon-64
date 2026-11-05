@@ -22,14 +22,20 @@ and 10 players. All artwork is original and drawn in OpenSCAD.
 | Lady of the Lake | `stl/coins/lady_of_the_lake.stl` | 1 | |
 | Loyalty: Good | `stl/coins/loyalty_good.stl` | 1 | for Lady of the Lake |
 | Loyalty: Evil | `stl/coins/loyalty_evil.stl` | 1 | for Lady of the Lake |
-| Good round marker (star) | `stl/coins/marker_good.stl` | **3** | goes in a quest-track recess |
-| Evil round marker (flame) | `stl/coins/marker_evil.stl` | **3** | goes in a quest-track recess |
+| Quest: Success | `stl/coins/success.stl` | **5** | secret quest vote |
+| Quest: Fail | `stl/coins/fail.stl` | **5** | secret quest vote |
+| Good round marker (star + GOOD) | `stl/coins/marker_good.stl` | **3** | goes in a quest-track recess |
+| Evil round marker (flame + EVIL) | `stl/coins/marker_evil.stl` | **3** | goes in a quest-track recess |
 | Tube | `stl/tube/tube.stl` | 1 | |
 | Screw lid | `stl/tube/lid.stl` | 1 | |
 
 That is 16 role coins: all six special roles, plus 6 Loyal Servants and
 4 Minions, so a 10-player game also works with no special roles at all.
 A game ends after three wins for one side, so 3 markers per side is enough.
+
+**Quests:** give each team member one Success and one Fail coin. They hand
+one back face-down; shuffle and reveal. The backs are identical, so a vote
+can't be read from behind. A team is never bigger than 5, so 5 of each is enough.
 
 **Lady of the Lake:** hand the two loyalty coins to the player being
 examined. They pass the one matching their side face-down to the Lady's
@@ -61,13 +67,15 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
 | 10 | 3 | 4 | 4 | 5•• | 5 |
 
 Inside, from the bottom: a pocket that holds the six markers snugly, then the
-stack of 19 coins (0.3 mm radial play), then the female thread. The lid's
+stack of 29 coins (0.3 mm radial play), then the female thread. The lid's
 threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
 tube faces when it is screwed home.
 
+The base is engraved **AVALON** and the lid carries a compass star.
+
 Overall size closed: 54.6 mm across flats, 63 mm across corners, 183 mm tall.
-The cavity is only as deep as the set needs; the rest of the tube is solid, so
+Everything in the set (29 coins and 6 markers) fits inside. The cavity is only as deep as the set needs; the rest of the tube is solid, so
 print it with low infill (10–15 %) to save filament.
 
 ## Printing
@@ -75,7 +83,7 @@ print it with low infill (10–15 %) to save filament.
 * **Coins:** face up, no supports. The artwork and rim are a 0.6 mm raised layer:
   add a filament change at **2.4 mm** (coins) / **1.8 mm** (markers) for
   two-colour faces. Suggested colours: blue for Good roles and star markers,
-  red for Evil roles and flame markers, anything for the Lady.
+  red for Evil roles and flame markers, anything for the Lady and the quest coins.
 * **Tube:** upright, lid end up, no supports (the recesses are shallow enough
   to bridge). 0.2 mm layers are fine.
 * **Lid:** already oriented plate-down in the STL.

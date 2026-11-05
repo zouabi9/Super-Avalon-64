@@ -7,7 +7,7 @@
 //
 // Pieces: merlin, percival, assassin, morgana, mordred, oberon (1 each),
 // loyal_servant (print 6), minion (print 4), lady_of_the_lake (1),
-// loyalty_good (1), loyalty_evil (1),
+// loyalty_good (1), loyalty_evil (1), success (5), fail (5),
 // marker_good (3), marker_evil (3).
 //
 // Render one coin from the command line, e.g.
@@ -159,6 +159,26 @@ module icon_flame() {
 
 module icon_star() { star2d(8, 3.4); }
 
+module goblet() {
+    intersection() {                                 // cup
+        translate([0, 4]) circle(6);
+        translate([-7, 1]) square([14, 7.2]);
+    }
+    translate([-6, 7.2]) square([12, 1.2]);          // lip
+    translate([-0.9, -4]) square([1.8, 5.5]);        // stem
+    translate([0, -5]) scale([1, 0.35]) circle(4.6); // foot
+}
+
+module icon_goblet() { translate([0, -1.5]) goblet(); }
+
+module icon_broken_goblet() {
+    translate([0, -1.5]) difference() {
+        goblet();
+        polygon([[-0.6, 9], [0.6, 9], [1.6, 5.5], [-0.4, 3], [1.2, 0], [0.6, -7],
+                 [-0.6, -7], [0, 0], [-1.6, 3], [0.4, 5.5]]);
+    }
+}
+
 // ============================================================ designs
 
 // [part id, icon module name, bottom text, top text]
@@ -172,8 +192,8 @@ designs = [
     ["oberon",         "blind_eye",     "OBERON",        "EVIL"],
     ["minion",         "hood",          "MINION",        "EVIL"],
     ["lady_of_the_lake","lady",         "LADY OF THE LAKE", ""],
-    ["loyalty_good",   "star",          "LOYALTY",       "GOOD"],
-    ["loyalty_evil",   "flame",         "LOYALTY",       "EVIL"],
+    ["success",        "goblet",        "SUCCESS",       "QUEST"],
+    ["fail",           "broken_goblet", "FAIL",          "QUEST"],
 ];
 
 module icon(name) {
@@ -188,6 +208,8 @@ module icon(name) {
     else if (name == "lady")          icon_lady();
     else if (name == "flame")         icon_flame();
     else if (name == "star")          icon_star();
+    else if (name == "goblet")        icon_goblet();
+    else if (name == "broken_goblet") icon_broken_goblet();
 }
 
 // Shared back: a ring and an eight-point compass star, debossed.
@@ -236,13 +258,33 @@ module coin(icon_name, bottom_txt, top_txt) {
 }
 
 // Round markers for the quest track on the tube: star = Good won the round, flame = Evil won.
+// Loyalty coins for the Lady of the Lake: the side is spelled out big in the middle.
+module loyalty_coin(good) {
+    r = coin_d / 2;
+    k = coin_d / 32;
+    coin_body(coin_d, coin_t);
+    front_relief(coin_t) {
+        translate([0, 6.8 * k]) scale(0.42 * k) if (good) icon_star(); else icon_flame();
+        translate([0, -1.2 * k]) text(good ? "GOOD" : "EVIL", size = 5.4 * k, font = font_main,
+                                      halign = "center", valign = "center");
+        arc_text("LOYALTY", r - rim_w - 2.6 * k, 3.4 * k);
+    }
+}
+
+// Round markers for the quest track on the tube: star + GOOD, or flame + EVIL.
 module marker(good) {
     coin_body(marker_d, marker_t, show_back = false);
-    front_relief(marker_t) scale(0.8) if (good) icon_star(); else icon_flame();
+    front_relief(marker_t) {
+        translate([0, 3.6]) scale(0.48) if (good) icon_star(); else icon_flame();
+        translate([0, -4.6]) text(good ? "GOOD" : "EVIL", size = 3.6, font = font_main,
+                                  halign = "center", valign = "center");
+    }
 }
 
 module make_part(p) {
     if (p == "marker_good") marker(true);
+    else if (p == "loyalty_good") loyalty_coin(true);
+    else if (p == "loyalty_evil") loyalty_coin(false);
     else if (p == "marker_evil") marker(false);
     else for (dsg = designs) if (dsg[0] == p) coin(dsg[1], dsg[2], dsg[3]);
 }
@@ -257,12 +299,12 @@ module art2d(p) {
 }
 
 if (part == "art") {
-    ids = concat([for (dsg = designs) dsg[0]], ["marker_good", "marker_evil"]);
+    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil", "marker_good", "marker_evil"]);
     for (i = [0 : len(ids) - 1])
         translate([(i % 4) * (coin_d + 4), -floor(i / 4) * (coin_d + 4)])
             art2d(ids[i]);
 } else if (part == "all") {
-    ids = concat([for (dsg = designs) dsg[0]], ["marker_good", "marker_evil"]);
+    ids = concat([for (dsg = designs) dsg[0]], ["loyalty_good", "loyalty_evil", "marker_good", "marker_evil"]);
     for (i = [0 : len(ids) - 1])
         translate([(i % 6) * (coin_d + 4), -floor(i / 6) * (coin_d + 4), 0])
             make_part(ids[i]);
