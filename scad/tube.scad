@@ -2,11 +2,11 @@
 //
 // Each of the six faces is the quest track for one player count (5-10).
 // Five round recesses run down the face from the lid end; the floor of each
-// recess is engraved with that round's team size. Drop a Good (star) or Evil
-// (flame) round marker into the recess when the quest is resolved.
+// recess is engraved with that round's team size. Press a round marker into the
+// recess, GOOD (star) or EVIL (flame) side up, when the quest is resolved.
 // Round 4 for 7+ players has two dots under the number: it needs two Fails.
 //
-// Inside, from the bottom: a snug pocket for the 6 round markers, then the
+// Inside, from the bottom: a snug pocket for the 5 round markers, then the
 // coin stack, then the female thread for the lid.
 //
 //   openscad -D 'part="tube"' -o tube.stl scad/tube.scad

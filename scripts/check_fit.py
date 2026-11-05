@@ -25,7 +25,7 @@ coin_d, fit = val("coin_d"), val("fit_clearance")
 bore = coin_d + 2 * fit
 tube = meshes["tube"]
 coin = meshes["merlin"]
-marker = meshes["marker_good"]
+marker = meshes["marker"]
 print(f"\ncoin diameter {coin.extents[0]:.2f} mm, bore {bore:.2f} mm, radial play {fit} mm")
 
 # Probe the tube cavity: a point on the axis at each height is empty down to the floor.
@@ -34,15 +34,15 @@ zs = np.arange(0.2, tube.bounds[1][2], 0.2)
 inside = tube.contains(np.c_[np.zeros_like(zs), np.zeros_like(zs), zs])
 floor = zs[inside].max()  # top of the solid floor
 cavity = tube.bounds[1][2] - floor
-stack = 29 * coin.extents[2] + 6 * marker.extents[2]
+stack = 29 * coin.extents[2] + 5 * marker.extents[2]
 lid = meshes["lid"]
 plug = lid.extents[2] - val("lid_plate")
-print(f"cavity depth {cavity:.1f} mm, lid plug {plug:.1f} mm, stack of 29 coins + 6 markers {stack:.1f} mm")
+print(f"cavity depth {cavity:.1f} mm, lid plug {plug:.1f} mm, stack of 29 coins + 5 markers {stack:.1f} mm")
 print(f"headroom under the lid: {cavity - plug - stack:.2f} mm")
 ok &= 0 < cavity - plug - stack < 3
 
 # Ring check: points just inside the bore wall at mid-stack must be empty (coin fits).
-zmid = floor + 6 * marker.extents[2] + 20
+zmid = floor + 5 * marker.extents[2] + 20
 ang = np.linspace(0, 2 * np.pi, 72, endpoint=False)
 ring = np.c_[(coin_d / 2) * np.cos(ang), (coin_d / 2) * np.sin(ang), np.full_like(ang, zmid)]
 print("coin rim clear of the bore wall:", not tube.contains(ring).any())

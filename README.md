@@ -24,14 +24,13 @@ and 10 players. All artwork is original and drawn in OpenSCAD.
 | Loyalty: Evil | `stl/coins/loyalty_evil.stl` | 1 | for Lady of the Lake |
 | Quest: Success | `stl/coins/success.stl` | **5** | secret quest vote |
 | Quest: Fail | `stl/coins/fail.stl` | **5** | secret quest vote |
-| Good round marker (star + GOOD) | `stl/coins/marker_good.stl` | **3** | goes in a quest-track recess |
-| Evil round marker (flame + EVIL) | `stl/coins/marker_evil.stl` | **3** | goes in a quest-track recess |
+| Round marker (star + GOOD / flame + EVIL) | `stl/coins/marker.stl` | **5** | two-sided, presses into a quest-track recess |
 | Tube | `stl/tube/tube.stl` | 1 | |
 | Screw lid | `stl/tube/lid.stl` | 1 | |
 
 That is 16 role coins: all six special roles, plus 6 Loyal Servants and
 4 Minions, so a 10-player game also works with no special roles at all.
-A game ends after three wins for one side, so 3 markers per side is enough.
+There is one two-sided round marker per round: GOOD with a star on one face, EVIL with a flame on the other.
 
 **Quests:** give each team member one Success and one Fail coin. They hand
 one back face-down; shuffle and reveal. The backs are identical, so a vote
@@ -55,7 +54,7 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
   fails with two Fail votes.
 * Lay the tube on the table with your player count facing up and drop a star
   (Good) or flame (Evil) marker into the round's recess once it's resolved.
-  The markers sit flush with the face.
+  The markers are a snug press fit (0.15 mm per side) and sit flush with the face.
 
 | Players | R1 | R2 | R3 | R4 | R5 |
 |---|---|---|---|---|---|
@@ -66,7 +65,7 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
 | 9 | 3 | 4 | 4 | 5•• | 5 |
 | 10 | 3 | 4 | 4 | 5•• | 5 |
 
-Inside, from the bottom: a pocket that holds the six markers snugly, then the
+Inside, from the bottom: a pocket that holds the five markers snugly, then the
 stack of 29 coins (0.3 mm radial play), then the female thread. The lid's
 threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
@@ -74,16 +73,19 @@ tube faces when it is screwed home.
 
 The base is engraved **AVALON** and the lid carries a compass star.
 
-Overall size closed: 54.6 mm across flats, 63 mm across corners, 183 mm tall.
-Everything in the set (29 coins and 6 markers) fits inside. The cavity is only as deep as the set needs; the rest of the tube is solid, so
+Overall size closed: 54.6 mm across flats, 63 mm across corners, 191.5 mm tall.
+Everything in the set (29 coins and 5 markers) fits inside. The cavity is only as deep as the set needs; the rest of the tube is solid, so
 print it with low infill (10–15 %) to save filament.
 
 ## Printing
 
 * **Coins:** face up, no supports. The artwork and rim are a 0.6 mm raised layer:
-  add a filament change at **2.4 mm** (coins) / **1.8 mm** (markers) for
-  two-colour faces. Suggested colours: blue for Good roles and star markers,
-  red for Evil roles and flame markers, anything for the Lady and the quest coins.
+  add a filament change at **2.4 mm** for two-colour faces. Suggested colours:
+  blue for Good roles, red for Evil roles, anything for the Lady and the quest coins.
+* **Round markers:** flat, no supports. Both faces are engraved 0.6 mm deep
+  (EVIL underneath), so fill the engraving with paint (blue star side, red
+  flame side) for contrast. If they're too tight in the recesses, raise the
+  `0.3` in `recess_d` in `scad/config.scad`.
 * **Tube:** upright, lid end up, no supports (the recesses are shallow enough
   to bridge). 0.2 mm layers are fine.
 * **Lid:** already oriented plate-down in the STL.
