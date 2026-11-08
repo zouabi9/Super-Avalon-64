@@ -69,10 +69,12 @@ module face_cuts(i) {
     players = quest_table[i][0];
     teams   = quest_table[i][1];
 
-    // player-count label in the top band
+    // player-count label with the number of evil players underneath
     on_face(i, tube_h - label_zone / 2, engrave_depth) {
-        translate([0, 3]) text(str(players), size = 11, font = font_main, halign = "center", valign = "center");
-        translate([0, -9]) text("PLAYERS", size = 3.2, font = font_main, halign = "center", valign = "center");
+        translate([0, 7.5]) text(str(players), size = 9, font = font_main, halign = "center", valign = "center");
+        translate([0, 0.6]) text("PLAYERS", size = 3, font = font_main, halign = "center", valign = "center");
+        translate([0, -7]) text(str(evil_count(players), " EVIL"), size = 4.6, font = font_main,
+                                halign = "center", valign = "center");
     }
 
     for (j = [0 : 4]) {
