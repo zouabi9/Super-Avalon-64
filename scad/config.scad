@@ -45,7 +45,7 @@ recess_d      = marker_d + 0.3;   // snug: marker presses in and stays put
 recess_depth  = marker_t;         // marker sits flush with the face
 engrave_depth = 0.8;              // depth of the team-size number below the recess floor
 recess_gap    = 5;                // gap between recesses along the face
-label_zone    = 26;               // top band of each face: player-count label (sits over the lid thread)
+label_zone    = 26;               // top band of each face: player count with the evil count under it
 track_len     = 5 * recess_d + 6 * recess_gap;
 tube_floor    = 3;                // solid material under the marker pocket
 bottom_text_depth = 0.8;          // depth of the AVALON engraving on the base
@@ -86,5 +86,8 @@ quest_table = [
   [9,  [3, 4, 4, 5, 5]],
   [10, [3, 4, 4, 5, 5]],
 ];
+// Evil players (Minions of Mordred, specials included) for each player count.
+function evil_count(players) = [2, 2, 3, 3, 3, 4][players - 5];
+
 two_fail_round = 3;     // index of round 4
 two_fail_min_players = 7;

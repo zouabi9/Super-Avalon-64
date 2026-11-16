@@ -48,7 +48,8 @@ backs all carry the same debossed pattern so coins can be dealt face-down.
 ![Tube](docs/tube.png)
 
 * Each face is one player count. The big number at the lid end is the player
-  count; below it are five recesses for rounds 1–5, top to bottom.
+  count, with the number of evil players (Minions of Mordred, specials
+  included) engraved under it: 5→2, 6→2, 7→3, 8→3, 9→3, 10→4; below it are five recesses for rounds 1–5, top to bottom.
 * The floor of each recess is engraved with that round's team size.
   Round 4 with 7+ players has **two dots** under the number: that quest only
   fails with two Fail votes.
