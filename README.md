@@ -11,15 +11,15 @@ and 10 players. All artwork is original and drawn in OpenSCAD.
 
 | Piece | File | Print | Notes |
 |---|---|---|---|
-| Merlin | `stl/coins/merlin.stl` | 1 | Good |
-| Percival | `stl/coins/percival.stl` | 1 | Good |
-| Loyal Servant | `stl/coins/loyal_servant.stl` | **6** | Good |
-| Assassin | `stl/coins/assassin.stl` | 1 | Evil |
-| Morgana | `stl/coins/morgana.stl` | 1 | Evil |
-| Mordred | `stl/coins/mordred.stl` | 1 | Evil |
-| Oberon | `stl/coins/oberon.stl` | 1 | Evil |
-| Minion | `stl/coins/minion.stl` | **4** | Evil |
-| Lady of the Lake | `stl/coins/lady_of_the_lake.stl` | 1 | |
+| Merlin | `stl/coins/merlin.stl` | 1 | Good · "SEES EVIL" |
+| Percival | `stl/coins/percival.stl` | 1 | Good · "SEES MERLIN" |
+| Loyal Servant | `stl/coins/loyal_servant.stl` | **6** | Good · "SERVES ARTHUR" |
+| Assassin | `stl/coins/assassin.stl` | 1 | Evil · "KILLS MERLIN" |
+| Morgana | `stl/coins/morgana.stl` | 1 | Evil · "POSES AS MERLIN" |
+| Mordred | `stl/coins/mordred.stl` | 1 | Evil · "UNSEEN BY MERLIN" |
+| Oberon | `stl/coins/oberon.stl` | 1 | Evil · "UNKNOWN TO EVIL" |
+| Minion | `stl/coins/minion.stl` | **4** | Evil · "SERVES MORDRED" |
+| Lady of the Lake | `stl/coins/lady_of_the_lake.stl` | 1 | "REVEALS LOYALTY" |
 | Loyalty: Good | `stl/coins/loyalty_good.stl` | 1 | for Lady of the Lake |
 | Loyalty: Evil | `stl/coins/loyalty_evil.stl` | 1 | for Lady of the Lake |
 | Quest: Success | `stl/coins/success.stl` | **5** | secret quest vote |
@@ -40,7 +40,8 @@ can't be read from behind. A team is never bigger than 5, so 5 of each is enough
 examined. They pass the one matching their side face-down to the Lady's
 holder and keep the other hidden, so only loyalty is revealed, never the role.
 
-Coins are 38 mm × 3 mm with rounded edges. Each front shows the role, its icon and GOOD/EVIL; the
+Coins are 38 mm × 3 mm with rounded edges. Each front shows the role, its icon, GOOD/EVIL and a short line on what the
+role does (in the quoted text above); the
 backs all carry the same debossed pattern so coins can be dealt face-down.
 
 ## The tube
@@ -72,13 +73,16 @@ threaded plug presses down on the stack, so nothing rattles. It's a rounded
 single-start thread, 5 mm pitch, about 2½ turns; the hex lid lines up with the
 tube faces when it is screwed home.
 
-The base is engraved **AVALON** and the lid carries a compass star. All outside
+The base is engraved **AVALON** and the lid carries a compass star on top and
+a **King's crown** on the inside: hand the lid to the current mission leader. All outside
 edges are rounded: the six long corners (2 mm), the ends of the tube and lid,
 and the mouth of every recess.
 
 Overall size closed: 54.6 mm across flats, 63 mm across corners, 191.5 mm tall.
 Everything in the set (29 coins and 5 markers) fits inside. The cavity is only as deep as the set needs; the rest of the tube is solid, so
 print it with low infill (10–15 %) to save filament.
+
+![Inside of the lid](docs/lid.png)
 
 ## Printing
 
