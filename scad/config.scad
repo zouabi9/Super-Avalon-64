@@ -63,6 +63,7 @@ thread_e      = 0.8;              // eccentricity = half the thread depth
 thread_r      = bore_d / 2 + thread_e + 0.2;   // keeps the thread's narrowest point wider than the bore
 thread_fit    = 0.3;              // radial clearance between male and female thread
 lid_plate     = 4;
+lid_crown_depth = 0.8;            // King's crown engraved on the inside of the lid
 
 // Rounded exterior edges
 tube_corner_r = 2.0;              // the six long corners of the hex

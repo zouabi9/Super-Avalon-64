@@ -113,6 +113,22 @@ module tube() {
     }
 }
 
+// King's crown (the mission leader), about 26 x 22 mm: a band, three arched
+// points with orbs, a cross on top and three jewels cut into the band.
+module king_crown2d() {
+    difference() {
+        union() {
+            translate([-12, -10]) square([24, 5]);                          // band
+            polygon([[-12, -5], [-12, 4], [-6.5, -1], [0, 7], [6.5, -1], [12, 4], [12, -5]]);
+            for (x = [-12, 12]) translate([x, 5.2]) circle(1.8);            // side orbs
+            translate([0, 8.2]) circle(1.8);                                 // centre orb
+            translate([-0.9, 9]) square([1.8, 5]);                           // cross
+            translate([-2.6, 11.2]) square([5.2, 1.8]);
+        }
+        for (x = [-7, 0, 7]) translate([x, -7.5]) circle(1.3);               // jewels
+    }
+}
+
 // Lid modelled in its closed position, so it lines up with the hex when screwed home.
 module lid_in_place() {
     difference() {
@@ -123,6 +139,10 @@ module lid_in_place() {
                 translate([0, 0, thread_base + 0.6]) cylinder(r = thread_r + 2, h = thread_len);
             }
         }
+        // King's crown under the lid (inside face of the plug), mirrored so it
+        // reads correctly when you turn the lid over and look into it
+        translate([0, 0, thread_base + 0.6 - 0.01])
+            linear_extrude(lid_crown_depth + 0.01) mirror([0, 1]) king_crown2d();
         // compass star on top
         translate([0, 0, tube_h + lid_plate - 0.6])
             linear_extrude(1) polygon([for (k = [0 : 15])

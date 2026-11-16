@@ -182,18 +182,19 @@ module icon_broken_goblet() {
 // ============================================================ designs
 
 // [part id, icon module name, bottom text, top text]
+// [part id, icon, name (bottom edge), side (top edge), what the role does (inner arc)]
 designs = [
-    ["merlin",         "wizard_hat",    "MERLIN",        "GOOD"],
-    ["percival",       "shield_star",   "PERCIVAL",      "GOOD"],
-    ["loyal_servant",  "sword_up",      "LOYAL SERVANT", "GOOD"],
-    ["assassin",       "dagger",        "ASSASSIN",      "EVIL"],
-    ["morgana",        "crescent",      "MORGANA",       "EVIL"],
-    ["mordred",        "crown",         "MORDRED",       "EVIL"],
-    ["oberon",         "blind_eye",     "OBERON",        "EVIL"],
-    ["minion",         "hood",          "MINION",        "EVIL"],
-    ["lady_of_the_lake","lady",         "LADY OF THE LAKE", ""],
-    ["success",        "goblet",        "SUCCESS",       "QUEST"],
-    ["fail",           "broken_goblet", "FAIL",          "QUEST"],
+    ["merlin",          "wizard_hat",    "MERLIN",           "GOOD",  "SEES EVIL"],
+    ["percival",        "shield_star",   "PERCIVAL",         "GOOD",  "SEES MERLIN"],
+    ["loyal_servant",   "sword_up",      "LOYAL SERVANT",    "GOOD",  "SERVES ARTHUR"],
+    ["assassin",        "dagger",        "ASSASSIN",         "EVIL",  "KILLS MERLIN"],
+    ["morgana",         "crescent",      "MORGANA",          "EVIL",  "POSES AS MERLIN"],
+    ["mordred",         "crown",         "MORDRED",          "EVIL",  "UNSEEN BY MERLIN"],
+    ["oberon",          "blind_eye",     "OBERON",           "EVIL",  "UNKNOWN TO EVIL"],
+    ["minion",          "hood",          "MINION",           "EVIL",  "SERVES MORDRED"],
+    ["lady_of_the_lake","lady",          "LADY OF THE LAKE", "",      "REVEALS LOYALTY"],
+    ["success",         "goblet",        "SUCCESS",          "QUEST", ""],
+    ["fail",            "broken_goblet", "FAIL",             "QUEST", ""],
 ];
 
 module icon(name) {
@@ -247,16 +248,18 @@ module front_relief(t) {
     translate([0, 0, t - relief_h - 0.01]) linear_extrude(relief_h + 0.01) children();
 }
 
-module coin(icon_name, bottom_txt, top_txt) {
+module coin(icon_name, bottom_txt, top_txt, desc = "") {
     r = coin_d / 2;
     k = coin_d / 32;                 // artwork was drawn for a 32 mm coin; scale to fit
     long = len(bottom_txt) > 9;
     tr = r - rim_w - 2.6 * k;        // radius of the curved text
     coin_body(coin_d, coin_t);
     front_relief(coin_t) {
-        translate([0, 0.6 * k])
-            scale(0.95 * k) icon(icon_name);
+        // with a description the icon shrinks a little to make room for it
+        translate([0, (desc == "" ? 0.6 : 2.0) * k])
+            scale((desc == "" ? 0.95 : 0.66) * k) icon(icon_name);
         arc_text(bottom_txt, tr, (long ? 2.9 : 3.4) * k);
+        if (desc != "") arc_text(desc, tr - 3.8 * k, 2.6);
         if (top_txt != "") arc_text(top_txt, tr, 3.0 * k, top = true, spacing = 0.75);
     }
 }
@@ -300,7 +303,7 @@ module make_part(p) {
     if (p == "marker") marker();
     else if (p == "loyalty_good") loyalty_coin(true);
     else if (p == "loyalty_evil") loyalty_coin(false);
-    else for (dsg = designs) if (dsg[0] == p) coin(dsg[1], dsg[2], dsg[3]);
+    else for (dsg = designs) if (dsg[0] == p) coin(dsg[1], dsg[2], dsg[3], dsg[4]);
 }
 
 // ============================================================ output
